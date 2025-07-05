@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,8 @@ public class RecommendationService {
         return recommendationRepository.findByUserId(userId);
     }
 
-    public List<Recommendation> getActivityRecommendation(String activityId) {
-        return recommendationRepository.findByActivityId(activityId);
+    public Recommendation getActivityRecommendation(String activityId) {
+        return recommendationRepository.findByActivityId(activityId)
+                .orElseThrow(()-> new RuntimeException("Recommendation not found for activityId : "+ activityId));
     }
 }
