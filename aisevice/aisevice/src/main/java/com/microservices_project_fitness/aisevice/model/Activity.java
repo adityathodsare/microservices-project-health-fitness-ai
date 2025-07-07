@@ -2,11 +2,15 @@ package com.microservices_project_fitness.aisevice.model;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
+@Getter
+@Setter
 public class Activity {
     private String id;
     private String userId;
