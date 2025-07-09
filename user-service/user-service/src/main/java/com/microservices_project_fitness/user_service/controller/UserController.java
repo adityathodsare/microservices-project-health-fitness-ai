@@ -1,6 +1,8 @@
 package com.microservices_project_fitness.user_service.controller;
 
 
+import com.microservices_project_fitness.user_service.Dto.LoginRequest;
+import com.microservices_project_fitness.user_service.Dto.LoginResponse;
 import com.microservices_project_fitness.user_service.Dto.RegisterRequest;
 import com.microservices_project_fitness.user_service.Dto.UserResponseDto;
 import com.microservices_project_fitness.user_service.service.UserService;
@@ -32,5 +34,11 @@ public class UserController {
     @GetMapping("/{userId}/validate")
     public ResponseEntity<Boolean> validateUser(@PathVariable String userId) {
         return  ResponseEntity.ok(userService.existsByUserId(userId));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> validateCredentials(@RequestBody LoginRequest request) {
+        boolean isValid = userService.validateCredentials(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(isValid);
     }
 }

@@ -1,6 +1,8 @@
 package com.microservices_project_fitness.user_service.service;
 
 
+import com.microservices_project_fitness.user_service.Dto.LoginRequest;
+import com.microservices_project_fitness.user_service.Dto.LoginResponse;
 import com.microservices_project_fitness.user_service.Dto.RegisterRequest;
 import com.microservices_project_fitness.user_service.Dto.UserResponseDto;
 import com.microservices_project_fitness.user_service.model.User;
@@ -9,6 +11,8 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -72,5 +76,16 @@ public class UserService {
     public Boolean existsByUserId(String userId) {
         log.info("Checking if user with id {} exists", userId);
         return userRepository.existsById(userId);
+    }
+
+    public boolean validateCredentials(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user.getPassword().equals(password);
+        }
+
+        return false;
     }
 }
