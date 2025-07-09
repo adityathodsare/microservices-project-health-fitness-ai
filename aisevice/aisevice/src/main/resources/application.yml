@@ -1,6 +1,46 @@
+#spring:
+#  application:
+#    name: ai-sevice
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/fitnessrecommendation
+#      database: fitnessrecommendation
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#
+#
+#eureka:
+#  client:
+#    service-Url:
+#      defaultZone: http://localhost:8761/eureka
+#
+#
+#server:
+#  port: 8083
+#
+#
+#rabbitmq:
+#  exchange:
+#    name: fitness-exchange
+#  queue:
+#    name: activity-queue
+#  routing:
+#    key: activity-tracking
+#
+#
+#gemini:
+#  api:
+#    url: ${GEMINI_API_URL}
+#    key: ${GEMINI_API_KEY}
+
+
+
 spring:
   application:
-    name: ai-sevice
+    name: ai-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/fitnessrecommendation
@@ -11,25 +51,33 @@ spring:
     username: guest
     password: guest
 
-
 eureka:
   client:
-    service-Url:
+    service-url:
       defaultZone: http://localhost:8761/eureka
-
 
 server:
   port: 8083
 
-
+# RabbitMQ Configuration
 rabbitmq:
-  exchange:
-    name: fitness-exchange
-  queue:
-    name: activity-queue
-  routing:
-    key: activity-tracking
+  # Fitness recommendations
+  fitness:
+    exchange:
+      name: fitness-exchange
+    queue:
+      name: activity-queue
+    routing:
+      key: activity-tracking
 
+  # Healthcare recommendations
+  healthcare:
+    exchange:
+      name: healthcare-exchange
+    queue:
+      name: healthcare-queue
+    routing:
+      key: symptom-data
 
 gemini:
   api:
